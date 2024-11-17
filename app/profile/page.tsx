@@ -4,13 +4,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import { getUserDreams } from "@/lib/server-actions";
 import { DreamsGallery } from "@/components/dreams-gallery";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Dream } from "@/types/dto";
 
 export default async function ProfilePage() {
   const session = await auth();
