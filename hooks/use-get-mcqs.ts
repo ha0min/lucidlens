@@ -16,7 +16,13 @@ export function useGetMCQs() {
 
       const result = await getMCQs(dreamId);
 
-      setData(result);
+      console.log(result);
+
+      setData({
+        success: result.success,
+        data: result.data,
+        errorMessage: result.errorMessage || 'Something went wrong'
+      });
       return result;
     } catch (e) {
       setIsError(true);

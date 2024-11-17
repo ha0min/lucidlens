@@ -1,14 +1,14 @@
 export interface Fragment {
   location: string;
   interaction: string;
-  person: string;
+  entity: string;
   relation: string;
 }
 
 export interface DreamFormData {
   mood: string;
   protagonist: string;
-  fragment: Fragment;
+  fragments: Fragment;
 }
 
 export interface CreateMemoryResponse {
@@ -25,8 +25,17 @@ export interface Question {
   options: string[];
 }
 
+interface MCQ {
+  question: string;
+  emoji: string;
+  options: string[];
+}
+
 export interface GetMCQsResponse {
   success: boolean;
-  data: Question[] | null;
-  errorMessage: string | null;
+  errorMessage: string;
+  data: {
+    dreamId: string;
+    mcqs: MCQ[];
+  };
 }

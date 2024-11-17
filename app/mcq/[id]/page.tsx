@@ -67,7 +67,7 @@ export default function MCQPage({
     return <div>Error loading questions</div>;
   }
 
-  const questions = data?.data;
+  const questions = data?.data.mcqs;
 
   const handleOptionSelect = (option: string) => {
     setSelectedAnswer(option);

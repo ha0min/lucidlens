@@ -16,7 +16,7 @@ export default function CreatePage() {
   const [fragment, setFragment] = useState<Fragment>({
     location: "",
     interaction: "",
-    person: "",
+    entity: "",
     relation: "",
   });
   const [selectedMood, setSelectedMood] = useState("happy");
@@ -42,7 +42,7 @@ export default function CreatePage() {
           selectedProtagonist === "custom"
             ? customProtagonist
             : selectedProtagonist,
-        fragment: fragment,
+        fragments: fragment,
       };
 
       const result = await mutate(dreamData);
@@ -192,10 +192,10 @@ export default function CreatePage() {
                     }
                   />
                   <input
-                    placeholder="Person"
+                    placeholder="Entity"
                     className="w-full rounded-md border bg-background px-3 py-2"
-                    value={fragment.person}
-                    onChange={(e) => updateFragment("person", e.target.value)}
+                    value={fragment.entity}
+                    onChange={(e) => updateFragment("entity", e.target.value)}
                   />
                   <input
                     placeholder="Relation"

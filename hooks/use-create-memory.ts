@@ -15,7 +15,14 @@ export function useCreateMemory() {
       setIsError(false);
       setError(null);
 
-      const result = await createMemory(formData);
+      const enrichedData = {
+        userId: "28",
+        dreamData: formData
+      };
+
+      console.log(enrichedData);
+      
+      const result = await createMemory(enrichedData);
       
       setData(result);
       setIsSuccess(result.success);
