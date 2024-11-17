@@ -36,7 +36,7 @@ export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({
           <div className="flex flex-col items-center justify-center text-center w-[90vw] h-[30vh] sm:w-[80vw] md:w-[70vw] lg:w-[60vw] mx-auto bg-white rounded-lg p-8">
             <WordRotate
               words={rotatingText}
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center text-foreground"
             />
           </div>
         </motion.div>

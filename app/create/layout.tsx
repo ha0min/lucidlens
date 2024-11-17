@@ -8,6 +8,7 @@ export default function CreateLayout({
   return (
     <PageTransition>
       <section>{children}</section>
+      
     </PageTransition>
   );
 }

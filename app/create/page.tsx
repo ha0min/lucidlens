@@ -4,10 +4,10 @@ import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import EmojiButton from "@/components/emoji-button";
 import { RainbowButton } from "@/components/ui/rainbow-button";
-import { DreamFormData, Fragment } from "@/models/dto";
-import { createMemory } from "../actions";
+import { DreamFormData, Fragment } from "@/types/dto";
+import { useCreateMemory } from "@/hooks/use-create-memory";
 import LoadingOverlay from "@/components/loading-overlay";
-
+import { useToast } from "@/hooks/use-toast";
 
 export default function CreatePage() {
   const [customMood, setCustomMood] = useState("");
@@ -21,17 +21,18 @@ export default function CreatePage() {
   const [selectedMood, setSelectedMood] = useState("happy");
   const [selectedProtagonist, setSelectedProtagonist] = useState("human");
 
-  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+
+  const { mutate, isLoading, data } = useCreateMemory();
 
   const updateFragment = useCallback((field: keyof Fragment, value: string) => {
     setFragment((prev) => ({ ...prev, [field]: value }));
   }, []);
 
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
-    //   setIsLoading(true);
-      const memoryData: DreamFormData = {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const dreamData: DreamFormData = {
         mood: selectedMood === "custom" ? customMood : selectedMood,
         protagonist:
           selectedProtagonist === "custom"
@@ -40,14 +41,17 @@ export default function CreatePage() {
         fragment: fragment,
       };
 
-      await createMemory(memoryData);
-      // add a delay to simulate loading
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 4000);
-    },
-    [selectedMood, customMood, selectedProtagonist, customProtagonist, fragment]
-  );
+      await mutate(dreamData);
+      console.log(data);
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
+      console.error("Error submitting form:", error);
+    }
+  };
 
   const moodEmojis = {
     happy: { emoji: "😊", text: "Happy" },
@@ -77,7 +81,6 @@ export default function CreatePage() {
   }, []);
 
   return (
-    
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start w-full max-w-2xl">
         <h1 className="text-3xl md:text-4xl font-bold">Rekindle Your Dreams</h1>
@@ -161,7 +164,9 @@ export default function CreatePage() {
                     placeholder="Interaction"
                     className="w-full rounded-md border bg-background px-3 py-2"
                     value={fragment.interaction}
-                    onChange={(e) => updateFragment("interaction", e.target.value)}
+                    onChange={(e) =>
+                      updateFragment("interaction", e.target.value)
+                    }
                   />
                   <input
                     placeholder="Person"
@@ -194,7 +199,9 @@ export default function CreatePage() {
 }
 
 const SectionTitle = ({ title }: { title: string }) => {
-    return (
-        <h2 className="scroll-m-20 text-xl sm:text-2xl font-semibold tracking-tight">{title}</h2>
-    )
-}
+  return (
+    <h2 className="scroll-m-20 text-xl sm:text-2xl font-semibold tracking-tight">
+      {title}
+    </h2>
+  );
+};
