@@ -43,7 +43,7 @@ export function FloatingNav() {
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed inset-x-0 bottom-0 flex justify-center z-50 pb-safe-bottom"
+      className="fixed inset-x-0 bottom-0 flex justify-center z-40 pb-safe-bottom"
     >
       <nav className="mb-8 flex items-center justify-center gap-1 w-fit px-4 py-2 rounded-full bg-background/80 shadow-lg backdrop-blur-md border">
         {navItems.map((item) => {
