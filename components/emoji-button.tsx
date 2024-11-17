@@ -13,6 +13,7 @@ interface EmojiButtonProps {
 function EmojiButton({ emoji, text, isSelected, onClick }: EmojiButtonProps) {
   return (
     <button
+      type="button"
       className={cn(
         "flex flex-col items-center justify-center w-[calc(50%-0.5rem)] sm:w-32 h-24 sm:h-32 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500",
         isSelected

@@ -16,9 +16,12 @@ export function useCreateMemory() {
       setError(null);
 
       const result = await createMemory(formData);
-
+      
       setData(result);
-      setIsSuccess(true);
+      setIsSuccess(result.success);
+      setIsError(!result.success);
+      setError(result.errorMessage);
+
       return result;
     } catch (e) {
       setIsError(true);

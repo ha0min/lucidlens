@@ -15,10 +15,10 @@ const navItems = [
   },
   {
     path: "/create",
-    name: "Create",
+    name: "Create", 
     icon: PlusCircle,
     requiresAuth: true,
-    isCreating: (pathname: string) => ["/create", "/mcq"].includes(pathname),
+    isCreating: (pathname: string) => pathname.startsWith("/create") || pathname.startsWith("/mcq"),
   },
   {
     path: "/profile",
@@ -32,6 +32,15 @@ export function FloatingNav() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   const handleNavClick = (item: (typeof navItems)[0], e: React.MouseEvent) => {
+    const isActive = item.isCreating 
+      ? item.isCreating(pathname)
+      : pathname === item.path;
+
+    if (isActive) {
+      e.preventDefault();
+      return;
+    }
+
     if (item.requiresAuth && !isAuthenticated) {
       e.preventDefault();
       //   showLoginDialog();

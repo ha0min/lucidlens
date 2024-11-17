@@ -8,6 +8,7 @@ import { DreamFormData, Fragment } from "@/types/dto";
 import { useCreateMemory } from "@/hooks/use-create-memory";
 import LoadingOverlay from "@/components/loading-overlay";
 import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 export default function CreatePage() {
   const [customMood, setCustomMood] = useState("");
@@ -23,7 +24,9 @@ export default function CreatePage() {
 
   const { toast } = useToast();
 
-  const { mutate, isLoading, data } = useCreateMemory();
+  const router = useRouter();
+  const { mutate, data, isError, error } = useCreateMemory();
+  const [formLoading, setFormLoading] = useState(false);
 
   const updateFragment = useCallback((field: keyof Fragment, value: string) => {
     setFragment((prev) => ({ ...prev, [field]: value }));
@@ -31,6 +34,7 @@ export default function CreatePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormLoading(true);
     try {
       const dreamData: DreamFormData = {
         mood: selectedMood === "custom" ? customMood : selectedMood,
@@ -41,8 +45,25 @@ export default function CreatePage() {
         fragment: fragment,
       };
 
-      await mutate(dreamData);
+      const result = await mutate(dreamData);
+
       console.log(data);
+      console.log(isError);
+      console.log(error);
+      console.log(result);
+      
+      if (isError) {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: error || "There was a problem with your request.",
+        });
+      }
+
+      if (result?.success && result?.data) {
+        console.log(result.data.dreamId);
+        router.push(`/mcq/${result.data.dreamId}`);
+      }
     } catch (error) {
       toast({
         variant: "destructive",
@@ -50,6 +71,8 @@ export default function CreatePage() {
         description: "There was a problem with your request.",
       });
       console.error("Error submitting form:", error);
+    } finally {
+      setFormLoading(false);
     }
   };
 
@@ -193,7 +216,7 @@ export default function CreatePage() {
           </div>
         </motion.div>
       </main>
-      <LoadingOverlay isLoading={isLoading} />
+      <LoadingOverlay isLoading={formLoading} />
     </div>
   );
 }

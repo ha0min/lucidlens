@@ -18,3 +18,15 @@ export interface CreateMemoryResponse {
   } | null;
   errorMessage: string | null;
 }
+
+export interface Question {
+  question: string;
+  emoji: string;
+  options: string[];
+}
+
+export interface GetMCQsResponse {
+  success: boolean;
+  data: Question[] | null;
+  errorMessage: string | null;
+}
