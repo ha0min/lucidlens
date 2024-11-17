@@ -4,7 +4,7 @@ const nextConfig = {
       return [
         {
           source: '/backend/api/:path*',
-          destination: `https://29pghtak5f.execute-api.us-west-2.amazonaws.com/default/:path*`,
+          destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`,
         },
       ];
     },
@@ -13,7 +13,7 @@ const nextConfig = {
         {
           protocol: 'https',
           hostname: 'dreamsimg.s3.us-west-2.amazonaws.com',
-          port: "",
+          port: "", 
           pathname: "/**",
         },
       ],

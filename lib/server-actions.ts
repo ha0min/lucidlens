@@ -8,7 +8,7 @@ import { GetDreamImageResponse } from "@/types/dto";
 
 export async function createMemory(data: { userId: string; dreamData: DreamFormData }): Promise<CreateMemoryResponse> {
   const response = await fetch(
-    "https://3qmxki06bl.execute-api.us-west-2.amazonaws.com/default/post/form",
+    `${process.env.NEXT_PUBLIC_API_URL}/post/form`,
     {
       method: "POST",
       headers: {
@@ -28,7 +28,7 @@ export async function createMemory(data: { userId: string; dreamData: DreamFormD
 export async function getMCQs(dreamId: string) {
   
   const response = await fetch(
-    `https://3qmxki06bl.execute-api.us-west-2.amazonaws.com/default/get/mcq?dreamId=${dreamId}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/get/mcq?dreamId=${dreamId}`,
     {
       method: "GET",
       headers: {
@@ -50,7 +50,7 @@ export async function login() {
 
 export async function submitMCQAnswers(data: SubmitMCQsRequest): Promise<SubmitMCQAnswersResponse> {
   const response = await fetch(
-    "https://3qmxki06bl.execute-api.us-west-2.amazonaws.com/default/post/mcq",
+    `${process.env.NEXT_PUBLIC_API_URL}/post/mcq`,
     {
       method: "POST",
       headers: {
@@ -69,7 +69,7 @@ export async function submitMCQAnswers(data: SubmitMCQsRequest): Promise<SubmitM
 
 export async function getDreamImage(dreamId: string, userId: string): Promise<GetDreamImageResponse> {
   const response = await fetch(
-    `https://3qmxki06bl.execute-api.us-west-2.amazonaws.com/default/get/image?userId=${userId}&dreamId=${dreamId}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/get/image?userId=${userId}&dreamId=${dreamId}`,
     {
       method: "GET",
       headers: {

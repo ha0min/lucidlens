@@ -29,6 +29,8 @@ export function useCreateMemory() {
       };
 
       console.log(enrichedData);
+
+      console.log(process.env.NEXT_PUBLIC_API_URL);
       
       const result = await createMemory(enrichedData);
       
