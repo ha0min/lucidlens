@@ -18,7 +18,10 @@ const navItems = [
     name: "Create", 
     icon: PlusCircle,
     requiresAuth: true,
-    isCreating: (pathname: string) => pathname.startsWith("/create") || pathname.startsWith("/mcq"),
+    isCreating: (pathname: string) =>
+      pathname.startsWith("/create") ||
+      pathname.startsWith("/mcq") ||
+      pathname.startsWith("/view"),
   },
   {
     path: "/profile",

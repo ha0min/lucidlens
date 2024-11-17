@@ -16,6 +16,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Loader2 } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
 
 function QuestionSkeleton() {
   return (
@@ -51,6 +52,7 @@ export default function MCQPage({ params }: { params: { id: string } }) {
   const submitMCQs = useSubmitMCQs();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [generatedPrompt, setGeneratedPrompt] = useState("");
+  const { user } = useAuth();
 
   useEffect(() => {
     fetch(params.id);
@@ -221,7 +223,9 @@ export default function MCQPage({ params }: { params: { id: string } }) {
             <DialogDescription>{generatedPrompt}</DialogDescription>
           </div>
           <DialogFooter>
-            <Button onClick={() => router.push(`/imgs/${params.id}`)}>
+            <Button 
+              onClick={() => router.push(`/view/${user?.email}/${params.id}`)}
+            >
               View Your Dream
             </Button>
           </DialogFooter>

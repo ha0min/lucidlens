@@ -1,28 +1,39 @@
-import SignIn from '@/components/sign-in-button'
-import { auth } from '@/auth'
+"use client";
+import { MultiStepLoader } from "@/components/multi-step-loader";
+import { useState } from "react";
 
-export default async function SignInPage() {
-  const session = await auth()
+export default function SignInPage() {
+  const [loading, setLoading] = useState(false);
+
+  const loadingStates = [
+    { text: "Checking credentials..." },
+    { text: "Validating session..." },
+    { text: "Redirecting to dashboard..." },
+  ];
+
+  const handleSignIn = () => {
+    setLoading(true);
+    // Simulate sign-in process
+    setTimeout(() => {
+      setLoading(false);
+    }, 6000); // Show loader for 6 seconds
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      {session ? (
-        <div className="text-center">
-          <h1 className="text-2xl mb-4">Welcome, {session.user?.name}!</h1>
-          <img 
-            src={session.user?.image ?? ''} 
-            alt="Profile" 
-            className="w-20 h-20 rounded-full mx-auto mb-4"
-          />
-          <p>Email: {session.user?.email}</p>
-          <p>stringify: {JSON.stringify(session)}</p>
-        </div>
-      ) : (
-        <div className="text-center">
-          <h1 className="text-2xl mb-4">Please Sign In</h1>
-          <SignIn />
-        </div>
-      )}
+    <div className="min-h-screen flex flex-col items-center justify-center p-4">
+      <button
+        onClick={handleSignIn}
+        className="px-4 py-2 bg-black dark:bg-white text-white dark:text-black rounded-md hover:opacity-90"
+      >
+        Sign In
+      </button>
+
+      <MultiStepLoader
+        loadingStates={loadingStates}
+        loading={loading}
+        duration={2000} // Each state will show for 2 seconds
+        loop={false} // Don't loop through states
+      />
     </div>
-  )
-} 
+  );
+}

@@ -55,3 +55,12 @@ export interface SubmitMCQsRequest {
   dreamId: string;
   mcqs: MCQAnswer[];
 }
+
+export interface GetDreamImageResponse {
+  success: boolean;
+  errorMessage: string | null;
+  data: {
+    prompt: string;
+    s3: string;
+  } | null;
+}
