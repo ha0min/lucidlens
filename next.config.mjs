@@ -3,7 +3,7 @@ const nextConfig = {
     async rewrites() {
       return [
         {
-          source: '/api/:path*',
+          source: '/backend/api/:path*',
           destination: `https://29pghtak5f.execute-api.us-west-2.amazonaws.com/default/:path*`,
         },
       ];
