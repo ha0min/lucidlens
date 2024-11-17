@@ -1,6 +1,6 @@
-import SignIn from "@/components/sign-in-button";
-import { Button } from "@/components/ui/button";
+import { SignInDrawer } from "@/components/sign-in-drawer";
 import Image from "next/image";
+
 
 export default function Home() {
   return (
@@ -49,7 +49,7 @@ export default function Home() {
           >
             Read our docs
           </a>
-          <SignIn />
+          <SignInDrawer />
         </div>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
@@ -98,8 +98,6 @@ export default function Home() {
           />
           Go to nextjs.org →
         </a>
-
-        
       </footer>
     </div>
   );

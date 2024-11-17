@@ -1,5 +1,6 @@
 "use server";
 
+import { signIn } from "@/auth";
 import { DreamFormData } from "@/types/dto";
 import { CreateMemoryResponse } from "@/types/dto";
 
@@ -39,4 +40,8 @@ export async function getMCQs(dreamId: string) {
   }
 
   return response.json();
+}
+
+export async function login() {
+  await signIn("github")
 }

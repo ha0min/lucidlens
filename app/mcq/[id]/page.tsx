@@ -45,7 +45,9 @@ export default function MCQPage({
 
   if (isLoading) {
     return (
-      <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-8 sm:p-20">
+      <div className="
+      bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-blue-950/30 dark:via-purple-950/30 dark:to-pink-950/30
+      grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-8 sm:p-20">
         {/* Progress Bar Skeleton */}
         <div className="w-full max-w-2xl h-2 bg-gray-200 rounded-full overflow-hidden">
           <Skeleton className="h-full w-1/3" />
@@ -101,7 +103,9 @@ export default function MCQPage({
   const progress = ((currentQuestion + 1) / questions.length) * 100;
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-8 sm:p-20">
+    <div className="
+    bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-blue-950/30 dark:via-purple-950/30 dark:to-pink-950/30
+    grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-8 sm:p-20">
       {/* Progress Bar */}
       <div className="w-full max-w-2xl h-2 bg-gray-200 rounded-full overflow-hidden">
         <motion.div

@@ -9,8 +9,11 @@ import { useCreateMemory } from "@/hooks/use-create-memory";
 import LoadingOverlay from "@/components/loading-overlay";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/use-auth";
+import { SignInPromptCard } from "@/components/sign-in-prompt-card";
 
 export default function CreatePage() {
+  const { isAuthenticated } = useAuth();
   const [customMood, setCustomMood] = useState("");
   const [customProtagonist, setCustomProtagonist] = useState("");
   const [fragment, setFragment] = useState<Fragment>({
@@ -103,8 +106,14 @@ export default function CreatePage() {
     }
   }, []);
 
+  if (!isAuthenticated) {
+    return <SignInPromptCard />
+  }
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+    <div className="
+    bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-blue-950/30 dark:via-purple-950/30 dark:to-pink-950/30
+    grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start w-full max-w-2xl">
         <h1 className="text-3xl md:text-4xl font-bold">Rekindle Your Dreams</h1>
         <motion.div
