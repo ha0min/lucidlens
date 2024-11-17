@@ -1,104 +1,185 @@
-import { SignInDrawer } from "@/components/sign-in-drawer";
-import Image from "next/image";
+"use client";
 
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { motion } from "framer-motion";
+import { ArrowRight, Star, Users } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+
+const FeatureCard = ({ feature }: { feature: { title: string; description: string; icon: string } }) => {
+  return (
+    <Card className="p-6 backdrop-blur-sm bg-background/50 hover:bg-background/80 transition-all duration-300 border-2">
+      <div className="text-4xl mb-4">{feature.icon}</div>
+      <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+      <p className="text-muted-foreground">{feature.description}</p>
+    </Card>
+  );
+};
+
+const TestimonialCard = ({ testimonial, index }: { testimonial: { quote: string; author: string; role: string }; index: number }) => {
+  return (
+    <motion.div
+      key={index}
+      className="bg-background/50 backdrop-blur-sm p-8 rounded-2xl border-2"
+    >
+      <Star className="w-8 h-8 text-yellow-500 mb-4" />
+      <p className="text-lg mb-4 italic">{testimonial.quote}</p>
+      <div className="flex items-center gap-2">
+        <Users className="w-5 h-5 text-muted-foreground" />
+        <div>
+          <div className="font-semibold">{testimonial.author}</div>
+          <div className="text-sm text-muted-foreground">{testimonial.role}</div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const features = [
+  {
+    title: "AI Dream Analysis",
+    description: "Advanced algorithms analyze your dreams for deeper psychological insights",
+    icon: "💭",
+  },
+  {
+    title: "Dream Patterns",
+    description: "Discover recurring themes and symbols in your dream journal",
+    icon: "🔍",
+  },
+  {
+    title: "Visual Dreams",
+    description: "Transform written dreams into stunning AI-generated artwork",
+    icon: "🎨",
+  },
+  {
+    title: "Dream Sharing",
+    description: "Share your dreams with friends and family for collaborative analysis",
+    icon: "💬",
+  },
+];
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const router = useRouter();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 },
+  };
+
+  return (
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100 via-violet-100 to-purple-100 dark:from-blue-950 dark:via-violet-950 dark:to-purple-950">
+      {/* Hero Section */}
+      <section className="relative px-6 lg:px-8 pt-24 pb-12 sm:pt-32 sm:pb-16">
+        <div className="mx-auto max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-          <SignInDrawer />
+            <h1 className="text-5xl font-bold tracking-tight sm:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 mb-6">
+              LucidLens
+            </h1>
+            <p className="text-xl leading-8 text-muted-foreground mb-10 max-w-2xl mx-auto">
+              Experience the future of dream exploration with AI-powered analysis and stunning visual representations of your subconscious mind.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg" 
+                className="text-lg px-8 py-6"
+                onClick={() => router.push('/create')}
+              >
+                Start Your Journey <ArrowRight className="ml-2" />
+              </Button>
+              {/* <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+                Watch Demo
+              </Button> */}
+            </div>
+          </motion.div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </section>
+
+      {/* Features Section */}
+      <section className="py-16 px-6 lg:px-8">
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="mx-auto max-w-7xl"
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {features.map((feature) => (
+              <motion.div key={feature.title} variants={item}>
+                <FeatureCard feature={feature} />
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mx-auto max-w-7xl"
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">10+</div>
+              <div className="text-muted-foreground">Dreams Analyzed</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">1+</div>
+              <div className="text-muted-foreground">Active Users</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">100%</div>
+              <div className="text-muted-foreground">Satisfaction Rate</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">24/0</div>
+              <div className="text-muted-foreground">Human Support</div>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+
+      {/* CTA Section */}
+      <section className="py-16 px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mx-auto max-w-3xl text-center"
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <Card className="p-12 backdrop-blur-sm bg-background/50 border-2">
+            <h2 className="text-3xl font-bold mb-4">Begin Your Dream Journey Today</h2>
+            <p className="text-muted-foreground mb-8">
+              Join thousands of dreamers who have already discovered new dimensions of their subconscious mind.
+            </p>
+            <Button size="lg" className="text-lg px-8 py-6">
+              Get Started Now <ArrowRight className="ml-2" />
+            </Button>
+          </Card>
+        </motion.div>
+      </section>
     </div>
   );
 }
