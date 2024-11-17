@@ -1,36 +1,29 @@
 import { useState } from "react";
-import { createMemory } from "@/lib/server-actions";
-import { CreateMemoryResponse, DreamFormData } from "@/types/dto";
-import { useAuth } from "./use-auth";
+import { submitMCQAnswers } from "@/lib/server-actions";
+import { SubmitMCQAnswersResponse, MCQAnswer } from "@/types/dto";
 
-
-export function useCreateMemory() {
-  const { user } = useAuth();
-
+export function useSubmitMCQs() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<CreateMemoryResponse | null>(null);
+  const [data, setData] = useState<SubmitMCQAnswersResponse | null>(null);
 
-  const mutate = async (formData: DreamFormData) => {
+  const mutate = async (dreamId: string, answers: MCQAnswer[]) => {
     try {
       setIsLoading(true);
       setIsError(false);
       setError(null);
 
-      if (!user?.email) {
-        throw new Error("User email not found, check your session");
+      const enrichedData = {
+        dreamId,
+        mcqs: answers
       }
 
-      const enrichedData = {
-        userId: user.email,
-        dreamData: formData
-      };
-
       console.log(enrichedData);
+
+      const result = await submitMCQAnswers(enrichedData);
       
-      const result = await createMemory(enrichedData);
       
       setData(result);
       setIsSuccess(result.success);
@@ -55,4 +48,4 @@ export function useCreateMemory() {
     error,
     data,
   };
-}
+} 

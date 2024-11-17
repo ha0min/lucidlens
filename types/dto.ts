@@ -39,3 +39,19 @@ export interface GetMCQsResponse {
     mcqs: MCQ[];
   };
 }
+
+export interface SubmitMCQAnswersResponse {
+  success: boolean;
+  errorMessage: string | null;
+  prompt: string | null;
+}
+
+export interface MCQAnswer {
+  question: string;
+  answer: string;
+}
+
+export interface SubmitMCQsRequest {
+  dreamId: string;
+  mcqs: MCQAnswer[];
+}
