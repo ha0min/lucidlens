@@ -64,3 +64,15 @@ export interface GetDreamImageResponse {
     s3: string;
   } | null;
 }
+
+export interface Dream {
+  dreamId: string;
+  prompt: string;
+  url: string;
+}
+
+export interface GetUserDreamsResponse {
+  success: boolean;
+  errorMessage: string;
+  dreams: Dream[];
+}

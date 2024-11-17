@@ -12,8 +12,8 @@ export function SignInPromptCard({
   description = "Please sign in to access this content",
 }: ProtectedRoutePlaceholderProps) {
   return (
-    <div className="min-h-[400px] w-full flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-blue-950/30 dark:via-purple-950/30 dark:to-pink-950/30 -z-10" />
+    <div className="min-h-screen w-full flex items-center justify-center p-4">
+      <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-blue-950/30 dark:via-purple-950/30 dark:to-pink-950/30 -z-10" />
       
       <Card className="w-full max-w-md border-neutral-200/50 bg-white/80 dark:bg-black/80 backdrop-blur-sm">
         <CardHeader className="text-center space-y-2">

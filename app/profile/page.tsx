@@ -2,21 +2,27 @@ import { auth } from "@/auth";
 import { SignInPromptCard } from "@/components/sign-in-prompt-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
-
-// Dummy data for the gallery
-const dummyPosts = Array(9).fill(null).map((_, i) => ({
-  id: i + 1,
-  imageUrl: `https://picsum.photos/400/400?random=${i}`,
-  alt: `Gallery image ${i + 1}`
-}));
+import { getUserDreams } from "@/lib/server-actions";
+import { DreamsGallery } from "@/components/dreams-gallery";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Dream } from "@/types/dto";
 
 export default async function ProfilePage() {
-  const session = await auth()
+  const session = await auth();
 
   if (!session) {
     return <SignInPromptCard />
   }
-  
+
+  // Fetch dreams on the server
+  const dreamsData = await getUserDreams(session.user?.email ?? '');
+  const userDreams = dreamsData.dreams;
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-12 row-start-2 w-full max-w-4xl">
@@ -32,25 +38,8 @@ export default async function ProfilePage() {
           </div>
         </Card>
 
-        {/* Gallery Grid */}
-        <div>
-          <h2 className="text-xl font-semibold mb-6">Photos</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {dummyPosts.map((post) => (
-              <Card 
-                key={post.id} 
-                className="overflow-hidden group relative aspect-square"
-              >
-                <img
-                  src={post.imageUrl}
-                  alt={post.alt}
-                  className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </Card>
-            ))}
-          </div>
-        </div>
+        {/* Dreams Gallery - now a client component */}
+        <DreamsGallery initialDreams={userDreams} />
       </main>
     </div>
   );
