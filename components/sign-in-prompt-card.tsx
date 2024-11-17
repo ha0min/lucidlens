@@ -1,18 +1,15 @@
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Lock } from "lucide-react"
 import { SignInDrawer } from "./sign-in-drawer"
 
 interface ProtectedRoutePlaceholderProps {
   title?: string
   description?: string
-  onSignInClick?: () => void
 }
 
 export function SignInPromptCard({
   title = "Authentication Required",
   description = "Please sign in to access this content",
-  onSignInClick
 }: ProtectedRoutePlaceholderProps) {
   return (
     <div className="min-h-[400px] w-full flex items-center justify-center p-4">

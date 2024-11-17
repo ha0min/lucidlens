@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { ArrowRight, Star, Users } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 
@@ -17,24 +17,6 @@ const FeatureCard = ({ feature }: { feature: { title: string; description: strin
   );
 };
 
-const TestimonialCard = ({ testimonial, index }: { testimonial: { quote: string; author: string; role: string }; index: number }) => {
-  return (
-    <motion.div
-      key={index}
-      className="bg-background/50 backdrop-blur-sm p-8 rounded-2xl border-2"
-    >
-      <Star className="w-8 h-8 text-yellow-500 mb-4" />
-      <p className="text-lg mb-4 italic">{testimonial.quote}</p>
-      <div className="flex items-center gap-2">
-        <Users className="w-5 h-5 text-muted-foreground" />
-        <div>
-          <div className="font-semibold">{testimonial.author}</div>
-          <div className="text-sm text-muted-foreground">{testimonial.role}</div>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
 
 const features = [
   {

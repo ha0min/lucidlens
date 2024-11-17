@@ -123,6 +123,7 @@ export default function MCQPage({ params }: { params: { id: string } }) {
             setShowSuccessModal(true);
           }
         } catch (error) {
+          console.error(error);
           // Handle error here
         } finally {
           setIsSubmitting(false);
